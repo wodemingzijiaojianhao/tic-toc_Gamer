@@ -11,15 +11,39 @@ class line_detecter:
             previousPiece = layoutArray[counter]
             counter += 1
             for i in range(self.size-1):
-                if layoutArray[counter] == previousPiece:
+                if layoutArray[counter] == previousPiece and layoutArray[counter] != " ":
                     consecutiveCount += 1
                 else:
                     consecutiveCount = 0
+                previousPiece = layoutArray[counter]
+                counter += 1
+            if consecutiveCount == self.size - 1:
+                for j in range(self.size):
+                    returnArray.append(counter-j-1)
+                return returnArray
+            consecutiveCount = 0
+        counter = 0
+        previousPiece = " "
+        # Check columns
+        layoutArrayHoriz = []
+        for column in range(self.size):
+            for row in range(self.size):
+                layoutArrayHoriz.append(layoutArray[row*self.size+column])
+        while counter < len(layoutArrayHoriz):
+            previousPiece = layoutArrayHoriz[counter]
+            counter += 1
+            for i in range(self.size-1):
+                if layoutArrayHoriz[counter] == previousPiece and layoutArrayHoriz[counter] != " ":
+                    consecutiveCount += 1
+                else:
+                    consecutiveCount = 0
+                previousPiece = layoutArrayHoriz[counter]
+                counter += 1
             print(counter) #test code
             print(consecutiveCount) #test code
             if consecutiveCount == self.size - 1:
                 for j in range(self.size):
-                    returnArray.append(counter-j)
+                    returnArray.append(((counter-j-1)%self.size)*self.size + ((counter-j-1)//self.size))
                 return returnArray
-            counter += 1
+            consecutiveCount = 0
         
