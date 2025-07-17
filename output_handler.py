@@ -30,6 +30,10 @@ class output_handler:
                 if self.layoutArray[i] == "O":
                     self.layoutArray[i] = "*"
         self.printOut()
+    def highlightFromIndexArr(self, arr):
+        for item in arr:
+            self.layoutArray[item] = "*"
+        self.printOut()
     def clear(self):
         for i in range(len(self.layoutArray)):
             self.layoutArray[i] = " "
