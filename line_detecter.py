@@ -39,8 +39,6 @@ class line_detecter:
                     consecutiveCount = 0
                 previousPiece = layoutArrayHoriz[counter]
                 counter += 1
-            print(counter) #test code
-            print(consecutiveCount) #test code
             if consecutiveCount == self.size - 1:
                 for j in range(self.size):
                     returnArray.append(((counter-j-1)%self.size)*self.size + ((counter-j-1)//self.size))
@@ -63,7 +61,7 @@ class line_detecter:
         if consecutiveCount == self.size - 1:
             for j in range(self.size):
                 returnArray.append((self.size-1-j)*self.size+j)
-                return returnArray
+            return returnArray
         # First stroke of X
         consecutiveCount, previousPiece, row, column = 0, " ", 0, 0
         previousPiece = layoutArray[row*self.size + column]
@@ -78,7 +76,7 @@ class line_detecter:
         if consecutiveCount == self.size - 1:
             for j in range(self.size):
                 returnArray.append(j*self.size+j)
-                return returnArray
+            return returnArray
 
 
 
