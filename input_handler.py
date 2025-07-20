@@ -20,7 +20,7 @@ class input_handler:
     def getNextMove(self, layoutArray): # For specialLocation, b means bottom, t means top, l means left, r means right
         while True:
             try:
-                move = int(input("Enter the next move:"))
+                move = int(input("Please enter the move:"))
                 move = move - 10 - 1 
                 row = move//10
                 column = move%10

@@ -77,6 +77,7 @@ class line_detecter:
             for j in range(self.size):
                 returnArray.append(j*self.size+j)
             return returnArray
+        return returnArray  # No line detected, return empty array
 
 
 
