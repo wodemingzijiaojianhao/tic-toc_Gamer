@@ -52,7 +52,7 @@ class line_detecter:
         previousPiece = layoutArray[row*self.size + column]
         row -= 1; column += 1
         while row >= 0 and column <= self.size-1:
-            if previousPiece == layoutArray[row*self.size + column]:
+            if previousPiece == layoutArray[row*self.size + column] and previousPiece != " ":
                 consecutiveCount += 1
             else:
                 consecutiveCount = 0
@@ -67,7 +67,7 @@ class line_detecter:
         previousPiece = layoutArray[row*self.size + column]
         row += 1; column += 1
         while row <= self.size-1 and column <= self.size-1:
-            if previousPiece == layoutArray[row*self.size + column]:
+            if previousPiece == layoutArray[row*self.size + column] and previousPiece != " ":
                 consecutiveCount += 1
             else:
                 consecutiveCount = 0

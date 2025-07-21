@@ -1,40 +1,68 @@
 class core:
     def __init__(self):
         self.size = -1
-        self.layoutArray = [" " for _ in range(self.size * self.size)]
+        self.layoutArray = []
     def initCommandLineGame(self):
         import output_handler as oh
         import input_handler as ih
-        self.ih.printIntro()
-        self.size = self.ih.getSize()
-        self.coh = oh(self.size)
-        self.cih = ih()
+        self.cih = ih.input_handler()
+        self.cih.printIntro()
+        self.size = self.cih.getSize()
+        self.layoutArray = [" " for _ in range(self.size * self.size)]
+        self.coh = oh.output_handler(self.size)
         gameEnd = False
         self.coh.printOut()
         while not gameEnd:
-            row, column = self.cih.getNextMove(self, self.layoutArray)
-            self.layoutArray[(row*self.size)+column] = "O"
-            self.coh.update(row, column, "O")
+            row, column = self.cih.getNextMove(self.layoutArray)
+            self.layoutArray[(row*self.size)+column] = "X"
+            self.coh.update(row, column, "X")
             self.coh.printOut()
+            mRow, mColumn, mWinning = self.calcNextMove(self.layoutArray)
+            if mRow == -1 and mColumn == -1 and mWinning == False:
+                gameEnd = True
+                print("The game is drawn.")
+                continue
+            elif mRow == -2 and mColumn == -2 and mWinning == False:
+                gameEnd = True
+                self.coh.showWinner("X")
+                print("You win!")
+                continue
+            self.layoutArray[(mRow*self.size)+mColumn] = "O"
+            self.coh.update(mRow, mColumn, "O")
+            self.coh.printOut()
+            if mWinning:
+                gameEnd = True
+                self.coh.showWinner("O")
+                print("Computer wins!")
+                continue
     def calcNextMove(self, layoutArray):
         import line_detecter as ld
-        self.cld = ld(self.size)
+        self.cld = ld.line_detecter(self.size)
         highestScore = -10000
         highestIndex = -1
+        full = True
+        for i in range(len(layoutArray)):
+            if layoutArray[i] == " ":
+                full = False
+                break
+        if full:
+            return -1, -1, False  # This indicate the game is drawn
         for i in range(len(layoutArray)):
             if layoutArray[i] == " ":
                 layoutArray[i] = "O"
                 score, flag = self.calcScore(layoutArray, "O", self.cld, self.size*self.size)
                 layoutArray[i] = " "
                 if flag == 1:
-                    return i // self.size, i % self.size, True # This boolean indicate whether the computer wins for the next step
+                    return i // self.size, i % self.size, True # This boolean indicate the computer wins for the next step
+                elif flag == 0:
+                    return -2, -2, False  # This indicate the user wins
                 if score > highestScore:
                     highestScore = score
                     highestIndex = i
         if highestIndex != -1:
             row = highestIndex // self.size
             column = highestIndex % self.size
-            return row, column, False
+            return row, column, False  #This indicate no winner yet, the game continues
         else:
             return -1, -1, False  #This indicate the game is drawn
     def calcScore(self, layoutArray, piece, lineDetecter, weight):

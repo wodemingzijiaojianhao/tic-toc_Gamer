@@ -1,4 +1,4 @@
-import output_handler as oh
+"""import output_handler as oh
 import line_detecter as ld
 import input_handler as ih
 a = oh.output_handler(4)
@@ -23,6 +23,9 @@ for i in range (10):
     r, s = c.getNextMove(a.layoutArray)
     a.update(r, s, "O")
     a.printOut()
-
+"""
+import core as c
+testGame = c.core()
+testGame.initCommandLineGame()
 
 

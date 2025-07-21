@@ -24,7 +24,6 @@ class input_handler:
                 move = move - 10 - 1 
                 row = move//10
                 column = move%10
-                print(row, column) #test code
                 if self.checkPositionValidity(layoutArray, row, column):
                     return row, column
                 else:
