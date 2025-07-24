@@ -12,8 +12,8 @@ class input_handler:
                 size = int(input("Please enter the size of the board: "))
             except:
                 print("Invalid input. Please enter a number.")
-            if size < 3 or size > 6:
-                print("Size must between 3 and 6. Please try again.")
+            if size < 2 or size > 6:
+                print("Size must between 2 and 6. Please try again.")
                 continue
             self.size = size
             return size

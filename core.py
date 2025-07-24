@@ -66,7 +66,10 @@ class core:
         else:
             return -1, -1, False  #This indicate the game is drawn
     def calcScore(self, layoutArray, piece, lineDetecter, weight):
+        if weight < self.size*self.size - 4:
+            return 0, 6
         detection = lineDetecter.detect(layoutArray)
+        # print(weight)  #test code
         if len(detection) != 0:
             if layoutArray[detection[0]] == "X":
                 return -1*weight, 0   #The second argument indicates if game win/lost on the current move
