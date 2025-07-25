@@ -5,11 +5,16 @@ class input_handler:
         print("You will be playing against the computer.")
         print("You can choose the size of the board.")
         print("The game will end when one player has filled a row, column, or diagonal.")
+        print("The computer will always play as 'O' and you will play as 'X'.")
+        print("To make a move, please enter the row and column of the position you want to fill.")
+        print("The row counted from top to bottom and the column counted from left to right.")
+        print("The first row and column is indexed as 1. When you make a move, please enter the position in the format of row index + column index.")
+        print("For example, if you want to fill the position in the second row and first column, please enter 21.")
         print("Good luck!")
     def getSize(self):
         while True:
             try:
-                size = int(input("Please enter the size of the board: "))
+                size = int(input("Please enter the size of the board you want: "))
             except:
                 print("Invalid input. Please enter a number.")
             if size < 2 or size > 6:
@@ -38,10 +43,12 @@ class input_handler:
         else:
             return True
     def announceWinner(self, playerWinning): # playerWinning is a boolean indicate whether the player wins
-        if playerWinning:
+        if playerWinning == 0:
             print("Congratulations! You win!")
-        else:
+        elif playerWinning == 1:
             print("Sorry, you lose. Better luck next time!")
+        elif playerWinning == 2:
+            print("The game is drawn.")
         ans = input("Wanna play again? (y/n)")
         if ans.lower() == 'y':
             return True

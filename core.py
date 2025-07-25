@@ -7,34 +7,39 @@ class core:
         import input_handler as ih
         self.cih = ih.input_handler()
         self.cih.printIntro()
-        self.size = self.cih.getSize()
-        self.layoutArray = [" " for _ in range(self.size * self.size)]
-        self.coh = oh.output_handler(self.size)
-        gameEnd = False
-        self.coh.printOut()
-        while not gameEnd:
-            row, column = self.cih.getNextMove(self.layoutArray)
-            self.layoutArray[(row*self.size)+column] = "X"
-            self.coh.update(row, column, "X")
+        gameExit = False
+        while not gameExit:
+            self.size = self.cih.getSize()
+            self.layoutArray = [" " for _ in range(self.size * self.size)]
+            self.coh = oh.output_handler(self.size)
+            gameEnd = False
             self.coh.printOut()
-            mRow, mColumn, mWinning = self.calcNextMove(self.layoutArray)
-            if mRow == -1 and mColumn == -1 and mWinning == False:
-                gameEnd = True
-                print("The game is drawn.")
-                continue
-            elif mRow == -2 and mColumn == -2 and mWinning == False:
-                gameEnd = True
-                self.coh.showWinner("X")
-                print("You win!")
-                continue
-            self.layoutArray[(mRow*self.size)+mColumn] = "O"
-            self.coh.update(mRow, mColumn, "O")
-            self.coh.printOut()
-            if mWinning:
-                gameEnd = True
-                self.coh.showWinner("O")
-                print("Computer wins!")
-                continue
+            while not gameEnd:
+                row, column = self.cih.getNextMove(self.layoutArray)
+                self.layoutArray[(row*self.size)+column] = "X"
+                self.coh.update(row, column, "X")
+                self.coh.printOut()
+                mRow, mColumn, mWinning = self.calcNextMove(self.layoutArray)
+                if mRow == -1 and mColumn == -1 and mWinning == False:
+                    gameEnd = True
+                    if not self.cih.announceWinner(2):
+                        gameExit = True
+                    continue
+                elif mRow == -2 and mColumn == -2 and mWinning == False:
+                    gameEnd = True
+                    self.coh.showWinner("X")
+                    if not self.cih.announceWinner(0):
+                        gameExit = True
+                    continue
+                self.layoutArray[(mRow*self.size)+mColumn] = "O"
+                self.coh.update(mRow, mColumn, "O")
+                self.coh.printOut()
+                if mWinning:
+                    gameEnd = True
+                    self.coh.showWinner("O")
+                    if not self.cih.announceWinner(1):
+                        gameExit = True
+                    continue
     def calcNextMove(self, layoutArray):
         import line_detecter as ld
         self.cld = ld.line_detecter(self.size)
