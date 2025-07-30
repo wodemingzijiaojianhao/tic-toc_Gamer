@@ -27,5 +27,6 @@ for i in range (10):
 import core as c
 testGame = c.core()
 testGame.initCommandLineGame()
+# End of testing code
 
 
