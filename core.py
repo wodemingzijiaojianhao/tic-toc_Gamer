@@ -51,7 +51,7 @@ class core:
                 full = False
                 break
         if full:
-            return -1, -1, False  # This indicate the game is drawn
+            return -1, -1, False  # This indicates the game is drawn
         for i in range(len(layoutArray)):
             if layoutArray[i] == " ":
                 layoutArray[i] = "O"
@@ -60,16 +60,16 @@ class core:
                 if flag == 1:
                     return i // self.size, i % self.size, True # This boolean indicate the computer wins for the next step
                 elif flag == 0:
-                    return -2, -2, False  # This indicate the user wins
+                    return -2, -2, False  # This indicates the user wins
                 if score > highestScore:
                     highestScore = score
                     highestIndex = i
         if highestIndex != -1:
             row = highestIndex // self.size
             column = highestIndex % self.size
-            return row, column, False  #This indicate no winner yet, the game continues
+            return row, column, False  #This indicates no winner yet, the game continues
         else:
-            return -1, -1, False  #This indicate the game is drawn
+            return -1, -1, False  #This indicates the game is drawn
     def calcScore(self, layoutArray, piece, lineDetecter, weight):
         if weight < self.size*self.size - 4:
             return 0, 6
