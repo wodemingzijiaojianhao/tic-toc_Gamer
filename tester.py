@@ -28,5 +28,6 @@ import core as c
 testGame = c.core()
 testGame.initCommandLineGame()
 # End of testing codes
+# This is the main entry point for the Tic Tac Toe game.
 
 
