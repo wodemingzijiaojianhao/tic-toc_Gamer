@@ -29,5 +29,7 @@ testGame = c.core()
 testGame.initCommandLineGame()
 # End of testing codes
 # This is the main entry point for the Tic Tac Toe game.
+# Need to put into more feature to build GUI version
+# And more testing as well
 
 
